@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
       title: "PocketID",
       debugShowCheckedModeBanner: false,
       theme: ThemeData.dark(),
-      darkTheme: ThemeData.light(),
+      darkTheme: ThemeData.dark(),
       home: SplashScreen(),
     );
   }

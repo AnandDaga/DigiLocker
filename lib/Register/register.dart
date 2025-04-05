@@ -1,4 +1,5 @@
 // ignore: file_names
+import 'package:digilocker/HomePage/HomePage.dart';
 import 'package:digilocker/utilities/reusable.dart';
 import 'package:flutter/material.dart';
 
@@ -45,7 +46,7 @@ class _RegisterState extends State<Register> {
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 35.0),
                         child: Container(
-                          height: 300,
+                          height: 350,
                           decoration: BoxDecoration(
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(30),
@@ -67,7 +68,8 @@ class _RegisterState extends State<Register> {
                                 _passwordTextController,
                               ),
                               const SizedBox(height: 25),
-                              Container(
+
+                              SizedBox(
                                 height: 35,
                                 child: Text(
                                   "Forgot Password",
@@ -77,6 +79,7 @@ class _RegisterState extends State<Register> {
                                   ),
                                 ),
                               ),
+
                               Container(
                                 height: 43,
                                 width: 150,
@@ -85,15 +88,48 @@ class _RegisterState extends State<Register> {
                                   borderRadius: BorderRadius.circular(50),
                                 ),
                                 child: TextButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    Navigator.pushReplacement(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => const MyHomePage(),
+                                      ),
+                                    );
+                                  },
                                   child: const Text(
-                                    "Register",
+                                    "Sign up",
                                     style: TextStyle(
                                       color: Colors.white,
-                                      fontSize: 20,
+                                      fontWeight: FontWeight.normal,
+                                      fontSize: 18,
                                     ),
                                   ),
                                 ),
+                              ),
+                              const SizedBox(height: 20),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  const Text(
+                                    "Already have an account",
+                                    style: TextStyle(
+                                      color: Colors.grey,
+                                      fontSize: 15,
+                                    ),
+                                  ),
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                    },
+                                    child: const Text(
+                                      "Sign In",
+                                      style: TextStyle(
+                                        color: Color.fromARGB(255, 55, 14, 201),
+                                        fontSize: 15,
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               ),
                             ],
                           ),
