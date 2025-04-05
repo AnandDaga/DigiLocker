@@ -28,14 +28,17 @@ class _MyHomePageState extends State<MyHomePage> {
   String email = "Loading...";
   String docName = "Loading...";
 
-  Container HeadingContainer({text, double? size}) {
+  Container headingContainer({text, double? size}) {
     return Container(
       height: 40,
       width: double.infinity,
       margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           Column(
+            mainAxisAlignment: MainAxisAlignment.end,
             children: [
               Text(
                 "${text}",
@@ -57,12 +60,13 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 ),
                 child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                  padding: EdgeInsets.symmetric(horizontal: 8, vertical: 2),
                   child: Text(
                     "View All",
                     style: TextStyle(
                       color: Color.fromARGB(255, 55, 14, 201),
                       fontSize: 12,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
                 ),
@@ -77,6 +81,41 @@ class _MyHomePageState extends State<MyHomePage> {
               )
               : Text(" "),
         ],
+      ),
+    );
+  }
+
+  Container quickLinks({text, icon, Function? ontap}) {
+    return Container(
+      width: 147,
+      height: 50,
+      child: GestureDetector(
+        onTap: (() => ontap!()),
+        child: Container(
+          height: 70,
+          decoration: BoxDecoration(
+            border: Border.all(width: 1, color: Colors.black54),
+            borderRadius: BorderRadius.circular(50),
+          ),
+          child: Row(
+            children: [
+              CircleAvatar(
+                radius: 18,
+                backgroundColor: Color.fromARGB(31, 158, 158, 158),
+                child: Icon(
+                  icon,
+                  size: 20,
+                  color: Color.fromARGB(101, 0, 0, 0),
+                ),
+              ),
+              const SizedBox(width: 10),
+              Text(
+                text,
+                style: TextStyle(color: Colors.grey[600], fontSize: 14),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
@@ -178,46 +217,105 @@ class _MyHomePageState extends State<MyHomePage> {
                   ],
                 ),
                 SizedBox(height: 10),
-                HeadingContainer(text: "What's New", size: 15),
+                headingContainer(text: "What's New", size: 15),
                 SizedBox(height: 10),
-                Container(
-                  height: 200,
-                  clipBehavior: Clip.hardEdge,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Color.fromARGB(255, 55, 14, 201),
-                        spreadRadius: 2,
-                        blurRadius: 5,
-                        offset: const Offset(0, 3),
-                      ),
-                    ],
-                  ),
-                  child: ListView(
-                    children: [
-                      CarouselSlider(
-                        items: [
-                          SizedBox(
-                            height: 250,
-                            child: Image.asset(imageList[0], fit: BoxFit.cover),
-                          ),
-                          SizedBox(
-                            height: 250,
-                            child: Image.asset(imageList[1], fit: BoxFit.cover),
-                          ),
-                        ],
-                        options: CarouselOptions(
-                          autoPlay: true,
-                          height: 200,
-                          autoPlayCurve: Curves.easeOut,
-                          enableInfiniteScroll: true,
-                          autoPlayAnimationDuration: const Duration(
-                            milliseconds: 1800,
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 25),
+                  child: Container(
+                    height: 200,
+                    clipBehavior: Clip.hardEdge,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Color.fromARGB(255, 55, 14, 201),
+                          spreadRadius: 2,
+                          blurRadius: 5,
+                          offset: const Offset(0, 3),
+                        ),
+                      ],
+                    ),
+                    child: ListView(
+                      children: [
+                        CarouselSlider(
+                          items: [
+                            SizedBox(
+                              height: 250,
+                              child: Image.asset(imageList[0], fit: BoxFit.cover),
+                            ),
+                            SizedBox(
+                              height: 250,
+                              child: Image.asset(imageList[1], fit: BoxFit.cover),
+                            ),
+                          ],
+                          options: CarouselOptions(
+                            autoPlay: true,
+                            height: 200,
+                            autoPlayCurve: Curves.easeInOut,
+                            enableInfiniteScroll: true,
+                            autoPlayAnimationDuration: const Duration(
+                              milliseconds: 1800,
+                            ),
                           ),
                         ),
-                      ),
+                  
+                        // TO DO : Document container
+                        // TO DO : other document container
+                      ],
+                    ),
+                  ),
+                ),
+                headingContainer(text: "Issued Documents",size:15),
+                Container(
+                  height: 190,
+                  child: ListView(
+                    scrollDirection: Axis.horizontal,
+                    children: [
+                      SizedBox(width: 15,),
+                      //TO DO remaining element 
                     ],
+                  ),
+                ), 
+                headingContainer(text: "Other Documents",size:15),
+                Container(
+                  height: 220,
+                  child: ListView(
+                    scrollDirection: Axis.horizontal,
+                    children: [
+                      SizedBox(width: 15,),
+                      //TO DO remaining element 
+                    ],
+                  ),
+                ), 
+                headingContainer(text: "Quick Links", size: 18),
+                Padding(
+                  padding: EdgeInsets.all(10),
+                  child: Container(
+                    height: 50,
+                    child: ListView(
+                      scrollDirection: Axis.horizontal,
+                      children: [
+                        SizedBox(width: 10),
+                        quickLinks(
+                          text: "My Profile",
+                          icon: Icons.person_add_alt_1_outlined,
+                          ontap: () {},
+                        ),
+                        SizedBox(width: 25),
+                        quickLinks(
+                          text: "Forget Pin",
+                          icon: Icons.help_outline_rounded,
+                          ontap: () {},
+                        ),
+                        SizedBox(width: 25),
+                        quickLinks(
+                          text: "About",
+                          icon: Icons.info_outline_rounded,
+                          ontap: () {},
+                        ),
+                        SizedBox(width: 25),
+                      ],
+                    ),
                   ),
                 ),
               ],
