@@ -1,4 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:digilocker/myprofile.dart';
 
 import "package:flutter/material.dart";
 import 'dart:math' as math;
@@ -28,8 +29,7 @@ class _MyHomePageState extends State<MyHomePage> {
   String email = "Loading...";
   String docName = "Loading...";
 
-  Future<String> getDocInfo(String doc) async{
-
+  Future<String> getDocInfo(String doc) async {
     return "empty";
   }
 
@@ -138,31 +138,27 @@ class _MyHomePageState extends State<MyHomePage> {
             width: 280,
             height: 170,
             child: ElevatedButton(
-              onPressed: () {},              
+              onPressed: () {},
               style: ButtonStyle(
                 shape: WidgetStateProperty.all<RoundedRectangleBorder>(
                   RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(50),                    
-                  )
+                    borderRadius: BorderRadius.circular(30),
+                  ),
                 ),
-                foregroundColor: WidgetStateProperty.resolveWith(
-                  (states) {
-                    if(states.contains(WidgetState.pressed)){
-                      return Colors.white;
-                    }else{
-                      return Colors.white;
-                    }
-                  },                
-                ),
-                backgroundColor: WidgetStateProperty.resolveWith(
-                  (states) {
-                    if(states.contains(WidgetState.pressed)){
-                      return Colors.white;
-                    }else{
-                      return Colors.white;
-                    }
-                  },                
-                ),              
+                foregroundColor: WidgetStateProperty.resolveWith((states) {
+                  if (states.contains(WidgetState.pressed)) {
+                    return Colors.white;
+                  } else {
+                    return Colors.white;
+                  }
+                }),
+                backgroundColor: WidgetStateProperty.resolveWith((states) {
+                  if (states.contains(WidgetState.pressed)) {
+                    return Colors.white;
+                  } else {
+                    return Colors.white;
+                  }
+                }),
               ),
               child: Column(
                 children: [
@@ -234,8 +230,7 @@ class _MyHomePageState extends State<MyHomePage> {
                               ),
                             ),
                           );
-                        }
-                        else{
+                        } else {
                           return Container(
                             height: 45,
                             width: 219,
@@ -244,7 +239,7 @@ class _MyHomePageState extends State<MyHomePage> {
                               borderRadius: BorderRadius.circular(50),
                               border: Border.all(
                                 color: Color.fromARGB(255, 55, 14, 201),
-                                width:1,
+                                width: 1,
                               ),
                             ),
                             child: Center(
@@ -264,7 +259,70 @@ class _MyHomePageState extends State<MyHomePage> {
                 ],
               ),
             ),
-          )
+          ),
+        ],
+      ),
+    );
+  }
+
+  SizedBox extractedBox({text, image}) {
+    return SizedBox(
+      height: 200,
+      width: 230,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Container(
+            height: 185,
+            width: 195,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              boxShadow: [
+                BoxShadow(
+                  color: const Color.fromARGB(130, 158, 158, 158),
+                  spreadRadius: 0,
+                  blurRadius: 0,
+                  offset: const Offset(0, 3),
+                ),
+              ],
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                SizedBox(height: 23),
+                CircleAvatar(
+                  radius: 40,
+                  backgroundColor: Color.fromARGB(255, 55, 14, 201),
+                  child: Container(
+                    height: 100,
+                    width: 100,
+                    clipBehavior: Clip.hardEdge,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(100),
+                    ),
+                    child: Image.asset("$image", fit: BoxFit.cover),
+                  ),
+                ),
+                SizedBox(height: 30),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 30),
+                  child: Text(
+                    "$text",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      letterSpacing: 0.8,
+                      fontFamily: "Poppins-Reg",
+                      fontSize: 15,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
         ],
       ),
     );
@@ -360,7 +418,24 @@ class _MyHomePageState extends State<MyHomePage> {
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(50),
                       ),
-                      child: CircularProgressIndicator(),
+                      child: FutureBuilder(
+                        future: getDocInfo("Profile"),
+                        builder: (context, snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            return const CircularProgressIndicator();
+                          } else {
+                            if (snapshot.data == "empty") {
+                              return Container();
+                            } else {
+                              return Image.network(
+                                "${snapshot.data}",
+                                fit: BoxFit.cover,
+                              );
+                            }
+                          }
+                        },
+                      ),
                     ),
                   ),
                 ],
@@ -380,7 +455,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         color: Color.fromARGB(255, 55, 14, 201),
                         spreadRadius: 2,
                         blurRadius: 5,
-                        offset: const Offset(0, 3),
+                        offset: const Offset(0, 2),
                       ),
                     ],
                   ),
@@ -390,22 +465,18 @@ class _MyHomePageState extends State<MyHomePage> {
                         items: [
                           SizedBox(
                             height: 250,
-                            child: Image.asset(
-                              imageList[0],
-                              fit: BoxFit.cover,
-                            ),
+                            child: Image.asset(imageList[0], fit: BoxFit.cover),
                           ),
                           SizedBox(
                             height: 250,
-                            child: Image.asset(
-                              imageList[1],
-                              fit: BoxFit.cover,
-                            ),
+                            child: Image.asset(imageList[1], fit: BoxFit.cover),
                           ),
                         ],
+
                         options: CarouselOptions(
                           autoPlay: true,
                           height: 200,
+                          viewportFraction: 1.0,
                           autoPlayCurve: Curves.easeInOut,
                           enableInfiniteScroll: true,
                           autoPlayAnimationDuration: const Duration(
@@ -413,7 +484,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           ),
                         ),
                       ),
-          
+
                       // TO DO : Document container
                       // TO DO : other document container
                     ],
@@ -449,7 +520,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       image: "assets/others.png",
                       doc: "vaccine",
                       isSaved: 4,
-                    ),                      
+                    ),
                     //TO DO remaining element
                   ],
                 ),
@@ -461,7 +532,18 @@ class _MyHomePageState extends State<MyHomePage> {
                   scrollDirection: Axis.horizontal,
                   children: [
                     SizedBox(width: 15),
-                    //TO DO remaining element
+                    extractedBox(
+                      text: "Vehicle Registration",
+                      image: "assets/vregistration.jpg",
+                    ),
+                    extractedBox(
+                      text: "Birth Certificate",
+                      image: "assets/birthcertificate.png",
+                    ),
+                    extractedBox(
+                      text: "Income Certificate",
+                      image: "assets/income-certificate.jpg",
+                    ),
                   ],
                 ),
               ),
@@ -477,7 +559,14 @@ class _MyHomePageState extends State<MyHomePage> {
                       quickLinks(
                         text: "My Profile",
                         icon: Icons.person_add_alt_1_outlined,
-                        ontap: () {},
+                        ontap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => MyProfile(),
+                            ),
+                          );
+                        },
                       ),
                       SizedBox(width: 25),
                       quickLinks(
@@ -498,6 +587,32 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             ],
           ),
+        ),
+      ),
+    );
+  }
+}
+
+class DocContainer extends StatelessWidget {
+  const DocContainer({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: NestedScrollView(
+        floatHeaderSlivers: true,
+        headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+          return <Widget>[];
+        },
+        body: ListView.builder(
+          itemCount: 30,
+          padding: EdgeInsets.all(10),
+          itemBuilder: (BuildContext context, int index) {
+            return SizedBox(
+              height: 50,
+              child: Center(child: Text('Item $index')),
+            );
+          },
         ),
       ),
     );
