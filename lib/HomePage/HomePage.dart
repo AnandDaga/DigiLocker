@@ -1,5 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:digilocker/myprofile.dart';
+import 'package:digilocker/menuItems/about.dart';
+import 'package:digilocker/menuItems/myProfile.dart';
+import 'package:digilocker/menuItems/settings.dart';
 
 import "package:flutter/material.dart";
 import 'dart:math' as math;
@@ -168,9 +170,10 @@ class _MyHomePageState extends State<MyHomePage> {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       SizedBox(
+                        
                         height: 70,
                         width: 70,
-                        child: Image.asset("$image", fit: BoxFit.fitHeight),
+                        child: Image.asset("$image", fit: BoxFit.contain),
                       ),
                       Column(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -578,7 +581,27 @@ class _MyHomePageState extends State<MyHomePage> {
                       quickLinks(
                         text: "About",
                         icon: Icons.info_outline_rounded,
-                        ontap: () {},
+                        ontap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => About(),
+                            ),
+                          );
+                        },
+                      ),
+                      SizedBox(width: 25),
+                      quickLinks(
+                        text: "Settings",
+                        icon: Icons.settings_outlined,
+                        ontap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => Settings(),
+                            ),
+                          );
+                        },
                       ),
                       SizedBox(width: 25),
                     ],
