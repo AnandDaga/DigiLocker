@@ -12,8 +12,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: "PocketID",
       debugShowCheckedModeBanner: false,
-      theme: ThemeData.dark(),
-      darkTheme: ThemeData.dark(),
+      theme: ThemeData.light(),
+      darkTheme: ThemeData.light(), 
       home: SplashScreen(),
     );
   }

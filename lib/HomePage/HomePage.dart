@@ -1,4 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:digilocker/HomePage/DocImagePage.dart';
 import 'package:digilocker/menuItems/about.dart';
 import 'package:digilocker/menuItems/myProfile.dart';
 import 'package:digilocker/menuItems/settings.dart';
@@ -141,7 +142,13 @@ class _MyHomePageState extends State<MyHomePage> {
             width: 280,
             height: 170,
             child: ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                MaterialPageRoute route = MaterialPageRoute(
+                  builder:
+                      (context) => DocImagePage(docName: '$doc', text: text),
+                );
+                Navigator.push(context, route);
+              },
               style: ButtonStyle(
                 shape: WidgetStateProperty.all<RoundedRectangleBorder>(
                   RoundedRectangleBorder(
@@ -184,7 +191,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             style: const TextStyle(
                               letterSpacing: 0.8,
                               fontFamily: "Poppins-Regular",
-                              color:Colors.black,
+                              color: Colors.black,
                               fontSize: 20,
                               fontWeight: FontWeight.bold,
                             ),
@@ -343,7 +350,7 @@ class _MyHomePageState extends State<MyHomePage> {
               angle: math.pi / 0.299,
               child: const Icon(
                 Icons.account_balance_wallet_outlined,
-                color: Colors.white,
+                color: Color.fromARGB(255, 55, 14, 201),
                 size: 30,
               ),
             ),
@@ -351,18 +358,15 @@ class _MyHomePageState extends State<MyHomePage> {
             Text(
               "|  PocketID",
               style: TextStyle(
-                color: Colors.white,
+                color: Color.fromARGB(255, 55, 14, 201),
                 fontSize: 20,
-                fontWeight: FontWeight.normal,
+                fontWeight: FontWeight.bold,
               ),
             ),
           ],
         ),
       ),
-      drawer: NavDrawer(
-        
-        email: email, userName: firstName,
-      ),
+      drawer: NavDrawer(email: email, userName: firstName),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
@@ -387,7 +391,12 @@ class _MyHomePageState extends State<MyHomePage> {
                                     Text(
                                       "Hi,",
                                       style: TextStyle(
-                                        color: Colors.white,
+                                        color: const Color.fromARGB(
+                                          255,
+                                          0,
+                                          0,
+                                          0,
+                                        ),
                                         fontSize: 30,
                                         fontWeight: FontWeight.bold,
                                       ),

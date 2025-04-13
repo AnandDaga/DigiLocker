@@ -3,7 +3,6 @@ import 'package:digilocker/menuItems/about.dart';
 import 'package:digilocker/menuItems/myProfile.dart';
 import 'package:digilocker/menuItems/settings.dart';
 import 'package:flutter/material.dart';
-import 'package:get/route_manager.dart';
 
 class NavDrawer extends StatefulWidget {
   const NavDrawer({super.key, required this.email, required this.userName});
