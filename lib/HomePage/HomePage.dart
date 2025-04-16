@@ -24,7 +24,7 @@ class _MyHomePageState extends State<MyHomePage> {
     "voter",
     "driving",
     "vaccine",
-    "passport",
+    "passport", 
     "birth",
     "income",
   ];

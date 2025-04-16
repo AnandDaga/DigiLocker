@@ -2,7 +2,9 @@ import 'dart:math' as math;
 import 'package:digilocker/menuItems/about.dart';
 import 'package:digilocker/menuItems/myProfile.dart';
 import 'package:digilocker/menuItems/settings.dart';
+import 'package:digilocker/utilities/themeChanger.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class NavDrawer extends StatefulWidget {
   const NavDrawer({super.key, required this.email, required this.userName});
@@ -67,9 +69,31 @@ class _NavDrawerState extends State<NavDrawer> {
                         borderRadius: BorderRadius.circular(50),
                         color: Color.fromARGB(56, 255, 255, 255),
                       ),
-                      child: GestureDetector(
-                        onTap: () {},
-                        child: Icon(Icons.nightlight_outlined),
+                      child: Consumer<ThemeProvider>(
+                        builder: (context, ThemeProvider, child) {
+                          return GestureDetector(
+                            onTap: () {
+                              var theme = ThemeProvider.currentTheme;
+                              if (theme == "system" || theme == "light") {
+                                ThemeProvider.changeTheme("dark");
+                              } else {
+                                ThemeProvider.changeTheme("light");
+                              }
+                            },
+                            child:
+                              (ThemeProvider.currentTheme == "light")
+                                ? Icon(
+                                  Icons.sunny,
+                                  size: 28,
+                                  color: Colors.white,
+                                )
+                                : Icon(
+                                  Icons.nightlight_outlined,
+                                  size: 28,
+                                  color: Colors.white,
+                                ),
+                          );
+                        },
                       ),
                     ),
                   ),
@@ -86,13 +110,13 @@ class _NavDrawerState extends State<NavDrawer> {
               style: TextStyle(fontSize: 17, fontWeight: FontWeight.normal),
             ),
             onTap:
-              () => {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const MyProfile()),
-                ),
-              },
-          ), 
+                () => {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const MyProfile()),
+                  ),
+                },
+          ),
           //About
           ListTile(
             leading: Icon(Icons.info_outline_rounded, size: 30),
@@ -101,12 +125,12 @@ class _NavDrawerState extends State<NavDrawer> {
               style: TextStyle(fontSize: 17, fontWeight: FontWeight.normal),
             ),
             onTap:
-              () => {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const About()),
-                ),
-              },
+                () => {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const About()),
+                  ),
+                },
           ),
           //Settings
           ListTile(
@@ -116,12 +140,12 @@ class _NavDrawerState extends State<NavDrawer> {
               style: TextStyle(fontSize: 17, fontWeight: FontWeight.normal),
             ),
             onTap:
-              () => {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const Settings()),
-                ),
-              },
+                () => {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const Settings()),
+                  ),
+                },
           ),
           //Help
           ListTile(
@@ -131,12 +155,12 @@ class _NavDrawerState extends State<NavDrawer> {
               style: TextStyle(fontSize: 17, fontWeight: FontWeight.normal),
             ),
             onTap:
-              () => {
-                // Navigator.push(
-                //   context,
-                //   MaterialPageRoute(builder: (context) => const Settings()),
-                // ),
-              },
+                () => {
+                  // Navigator.push(
+                  //   context,
+                  //   MaterialPageRoute(builder: (context) => const Settings()),
+                  // ),
+                },
           ),
           //LogOut
           ListTile(
@@ -146,12 +170,12 @@ class _NavDrawerState extends State<NavDrawer> {
               style: TextStyle(fontSize: 17, fontWeight: FontWeight.normal),
             ),
             onTap:
-              () => {
-                // Navigator.push(
-                //   context,
-                //   MaterialPageRoute(builder: (context) => const Settings()),
-                // ),
-              },
+                () => {
+                  // Navigator.push(
+                  //   context,
+                  //   MaterialPageRoute(builder: (context) => const Settings()),
+                  // ),
+                },
           ),
         ],
       ),
