@@ -1,0 +1,164 @@
+import 'package:flutter/material.dart';
+import 'package:get/utils.dart';
+
+class CheckPin extends StatefulWidget {
+  const CheckPin({super.key});
+
+  @override
+  State<CheckPin> createState() => _CheckPinState();
+}
+
+class _CheckPinState extends State<CheckPin> {
+  @override
+  Widget build(BuildContext context) {
+    return OtpScreen();
+  }
+}
+
+class OtpScreen extends StatefulWidget {
+  const OtpScreen({super.key});
+
+  @override
+  State<OtpScreen> createState() => _OtpScreenState();
+}
+
+class _OtpScreenState extends State<OtpScreen> {
+  @override
+  Widget build(BuildContext context) {
+    return SafeArea(
+      // backgroundColor: Colors.white,
+      child: Column(
+        children: [
+          Expanded(
+            child: Container(
+              color: Colors.white,
+              alignment: const Alignment(0, 0.5),
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [    
+                  buildSecurityText(),              
+                  const SizedBox(height: 40),
+                ],
+              ),
+            ),
+          ),
+          buildNumberPad(),
+        ],
+      ),
+    );
+  }
+
+  buildNumberPad() {
+    return Expanded(
+      child: Container(
+        alignment: Alignment.bottomCenter,
+        padding: EdgeInsets.only(bottom: 32),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                KeyboardNumber(n: 1, onPressed: () {}),
+                KeyboardNumber(n: 2, onPressed: () {}),
+                KeyboardNumber(n: 3, onPressed: () {}),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                KeyboardNumber(n: 4, onPressed: () {}),
+                KeyboardNumber(n: 5, onPressed: () {}),
+                KeyboardNumber(n: 6, onPressed: () {}),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                KeyboardNumber(n: 7, onPressed: () {}),
+                KeyboardNumber(n: 8, onPressed: () {}),
+                KeyboardNumber(n: 9, onPressed: () {}),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Container(
+                  width: 60,
+                  child: MaterialButton(onPressed: null, child: SizedBox()),
+                ),
+                KeyboardNumber(n: 0, onPressed: () {}),
+                Container(
+                  width: 60,
+                  child: MaterialButton(
+                    height: 60,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(60),
+                    ),
+                    onPressed: () {},
+                    child: Icon(
+                      Icons.backspace_outlined,
+                      color: Colors.blueAccent,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+
+            // KeyboardNumber(n: 4, onPressed: () {}),
+            // KeyboardNumber(n: 5, onPressed: () {}),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class buildSecurityText extends StatelessWidget {
+  const buildSecurityText({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Text("Enter Security Pin", style: TextStyle(
+      color:Colors.black,
+      fontSize: 24,
+      fontWeight: FontWeight.bold,
+    ),);
+  }
+}
+
+class KeyboardNumber extends StatelessWidget {
+  const KeyboardNumber({super.key, required this.n, required this.onPressed});
+  final int n;
+  final Function() onPressed;
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 60,
+      height: 60,
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        color: Color.fromRGBO(33, 150, 243, 0.1),
+      ),
+      alignment: Alignment.center,
+      child: MaterialButton(
+        padding: EdgeInsets.all(8),
+        onPressed: onPressed,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(60)),
+        height: 60,
+        child: Text(
+          "$n",
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            fontSize: 24,
+            color: Colors.blueAccent,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
+    );
+  }
+}
