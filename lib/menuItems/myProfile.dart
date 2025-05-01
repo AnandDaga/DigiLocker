@@ -1,5 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:digilocker/provider/user_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class MyProfile extends StatefulWidget {
   const MyProfile({super.key});
@@ -46,118 +48,132 @@ class _MyProfileState extends State<MyProfile> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text("My Profile"),backgroundColor:  Color.fromARGB(255, 55, 14, 201),),
-      body: Column(
-        children: [
-          ClipPath(
-            clipper: CustomClipperPath(),
-            child: Container(
-              color: Color.fromARGB(255, 55, 14, 201),
-              height: 165,
-              width: double.infinity,
+    return ChangeNotifierProvider(
+      create: (BuildContext context) => ProfileModel(),
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text("My Profile"),
+          backgroundColor: Color.fromARGB(255, 55, 14, 201),
+        ),
+        body: Column(
+          children: [
+            ClipPath(
+              clipper: CustomClipperPath(),
+              child: Container(
+                color: Color.fromARGB(255, 55, 14, 201),
+                height: 165,
+                width: double.infinity,
+              ),
             ),
-          ),
-          Transform.translate(
-            offset: Offset(0, -80),
-            child: Column(
-              children: [
-                GestureDetector(
-                  onTap: () {
-                    print('Change Profile Picture');
-                  },
-                  child: CircleAvatar(
-                    radius: 68,
-                    backgroundColor: Colors.grey[300],
-                    child: Container(
-                      height: 120,
-                      width: 120,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(100),
-                      ),
-                      child: FutureBuilder(
-                        future: futureFunction(),
-                        builder: (context, snapshot) {
-                          if (snapshot.connectionState ==
-                              ConnectionState.waiting) {
-                            return CircularProgressIndicator();
-                          } else {
-                            if (snapshot.data == "empty") {
-                              return Icon(
-                                Icons.add_a_photo_outlined,
-                                size: 100,
-                                color: Colors.grey,
-                              );
+            Transform.translate(
+              offset: Offset(0, -80),
+              child: Column(
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      print('Change Profile Picture');
+                    },
+                    child: CircleAvatar(
+                      radius: 68,
+                      backgroundColor: Colors.grey[300],
+                      child: Container(
+                        height: 120,
+                        width: 120,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(100),
+                        ),
+                        child: FutureBuilder(
+                          future: futureFunction(),
+                          builder: (context, snapshot) {
+                            if (snapshot.connectionState ==
+                                ConnectionState.waiting) {
+                              return CircularProgressIndicator();
                             } else {
-                              return CachedNetworkImage(
-                                placeholder:
-                                    (context, url) =>
-                                        CircularProgressIndicator(),
-                                imageUrl: "${profileUrl}",
-                                fit: BoxFit.cover,
-                              );
+                              if (snapshot.data == "empty") {
+                                return Icon(
+                                  Icons.add_a_photo_outlined,
+                                  size: 100,
+                                  color: Colors.grey,
+                                );
+                              } else {
+                                return CachedNetworkImage(
+                                  placeholder:
+                                      (context, url) =>
+                                          CircularProgressIndicator(),
+                                  imageUrl: "${profileUrl}",
+                                  fit: BoxFit.cover,
+                                );
+                              }
                             }
-                          }
-                        },
+                          },
+                        ),
                       ),
                     ),
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(height: 20),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  "First Name",
+                  style: TextStyle(
+                    fontSize: 20,
+                    letterSpacing: 0.5,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
                   ),
                 ),
               ],
             ),
-          ),
-          SizedBox(height: 20),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                "First Name",
-                style: TextStyle(
-                  fontSize: 20,
-                  letterSpacing: 0.5,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black,
+            SizedBox(height: 15),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 13),
+              child: Container(
+                height: 240,
+                decoration: BoxDecoration(
+                  boxShadow: [
+                    BoxShadow(
+                      color: Color.fromARGB(103, 104, 103, 103),
+                      blurRadius: 5,
+                      spreadRadius: 2.5,
+                      offset: Offset(2, 1),
+                    ),
+                    BoxShadow(
+                      color: Colors.white,
+                      blurRadius: 0,
+                      spreadRadius: 0,
+                      offset: Offset(0, 0),
+                    ),
+                  ],
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Column(
+                  children: [
+                    builtContainer("DOB", "$dob"),
+                    Divider(color: Colors.grey, thickness: 1),
+                    builtContainer("Gender", "$gender"),
+                    Divider(color: Colors.grey, thickness: 1),
+                    builtContainer("Email", "$email"),
+                  ],
                 ),
               ),
-            ],
-          ),
-          SizedBox(height: 15),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 13),
-            child: Container(
-              height: 240,
-              decoration: BoxDecoration(
-                boxShadow: [
-                  BoxShadow(
-                    color: Color.fromARGB(103, 104, 103, 103),
-                    blurRadius: 5,
-                    spreadRadius: 2.5,
-                    offset: Offset(2, 1),
-                  ),
-                  BoxShadow(
-                    color: Colors.white,
-                    blurRadius: 0,
-                    spreadRadius: 0,
-                    offset: Offset(0, 0),
-                  ),
-                ],
-                borderRadius: BorderRadius.circular(10),
-              ),              
-              child: Column(
-                children: [
-                  builtContainer("DOB", "$dob"),
-                  Divider(color: Colors.grey, thickness: 1),
-                  builtContainer("Gender", "$gender"),
-                  Divider(color: Colors.grey, thickness: 1),
-                  builtContainer("Email", "$email"),                    
-                ],
-              ),
             ),
-          ),          
-        ],
+          ],
+        ),
       ),
     );
+  }
+}
+
+class ProfileModel with ChangeNotifier {
+  String url = 'empty';
+  var _pickedImage;
+  void pickImageCamera(context) async {
+    print('camera');
   }
 }
 

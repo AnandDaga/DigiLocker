@@ -72,18 +72,18 @@ class _NavDrawerState extends State<NavDrawer> {
                         color: Color.fromARGB(56, 255, 255, 255),
                       ),
                       child: Consumer<ThemeProvider>(
-                        builder: (context, ThemeProvider, child) {
+                        builder: (context, themeProvider, child) {
                           return GestureDetector(
                             onTap: () {
-                              var theme = ThemeProvider.currentTheme;
+                              var theme = themeProvider.currentTheme;
                               if (theme == "system" || theme == "light") {
-                                ThemeProvider.changeTheme("dark");
+                                themeProvider.changeTheme("dark");
                               } else {
-                                ThemeProvider.changeTheme("light");
+                                themeProvider.changeTheme("light");
                               }
                             },
                             child:
-                                (ThemeProvider.currentTheme == "light")
+                                (themeProvider.currentTheme == "light")
                                     ? Icon(
                                       Icons.sunny,
                                       size: 28,

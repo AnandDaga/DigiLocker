@@ -1,6 +1,5 @@
 import "package:digilocker/SplashScreen/SplashScreen.dart";
-import '';
-import "package:digilocker/SplashScreen/checkPin.dart";
+
 import "package:digilocker/utilities/themeChanger.dart";
 import "package:flutter/material.dart";
 import "package:flutter_easyloading/flutter_easyloading.dart";
@@ -45,7 +44,8 @@ class MyApp extends StatelessWidget {
           title: "PocketID",
           debugShowCheckedModeBanner: false,
           theme: ThemeData.light(),
-          darkTheme: ThemeData.light(),
+          darkTheme: ThemeData.dark(),
+          themeMode: provider.themeMode,
           home: SplashScreen(),
           builder: EasyLoading.init(),
         );

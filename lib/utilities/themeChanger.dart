@@ -16,15 +16,15 @@ class ThemeProvider extends ChangeNotifier {
   Brightness get themeBrightness {
     if (currentTheme == "light") {
       return Brightness.light;
-    } else if (currentTheme == "dark") {
+    } else if (currentTheme == "dark"){
       return Brightness.dark;
     } else {
       return Brightness.light;
     }
   }
 
-  changeTheme(String theme) {
-    currentTheme = theme;
+  changeTheme(String theme) {    
+    currentTheme = theme;    
     notifyListeners();
   }
 }
