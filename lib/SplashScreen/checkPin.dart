@@ -11,7 +11,7 @@ class CheckPin extends StatefulWidget {
 class _CheckPinState extends State<CheckPin> {
   @override
   Widget build(BuildContext context) {
-    return OtpScreen();
+    return const OtpScreen();
   }
 }
 
@@ -53,7 +53,7 @@ class _OtpScreenState extends State<OtpScreen> {
     return Expanded(
       child: Container(
         alignment: Alignment.bottomCenter,
-        padding: EdgeInsets.only(bottom: 32),
+        padding: const EdgeInsets.only(bottom: 32),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
@@ -84,12 +84,12 @@ class _OtpScreenState extends State<OtpScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                Container(
+                const SizedBox(
                   width: 60,
                   child: MaterialButton(onPressed: null, child: SizedBox()),
                 ),
                 KeyboardNumber(n: 0, onPressed: () {}),
-                Container(
+                SizedBox(
                   width: 60,
                   child: MaterialButton(
                     height: 60,
@@ -97,7 +97,7 @@ class _OtpScreenState extends State<OtpScreen> {
                       borderRadius: BorderRadius.circular(60),
                     ),
                     onPressed: () {},
-                    child: Icon(
+                    child: const Icon(
                       Icons.backspace_outlined,
                       color: Colors.blueAccent,
                     ),
@@ -122,7 +122,7 @@ class buildSecurityText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text("Enter Security Pin", style: TextStyle(
+    return const Text("Enter Security Pin", style: TextStyle(
       color:Colors.black,
       fontSize: 24,
       fontWeight: FontWeight.bold,
@@ -145,14 +145,14 @@ class KeyboardNumber extends StatelessWidget {
       ),
       alignment: Alignment.center,
       child: MaterialButton(
-        padding: EdgeInsets.all(8),
+        padding: const EdgeInsets.all(8),
         onPressed: onPressed,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(60)),
         height: 60,
         child: Text(
           "$n",
           textAlign: TextAlign.center,
-          style: TextStyle(
+          style: const TextStyle(
             fontSize: 24,
             color: Colors.blueAccent,
             fontWeight: FontWeight.bold,

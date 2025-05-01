@@ -3,7 +3,9 @@ import 'package:digilocker/menuItems/about.dart';
 import 'package:digilocker/menuItems/myProfile.dart';
 import 'package:digilocker/menuItems/settings.dart';
 import 'package:digilocker/utilities/themeChanger.dart';
+import 'package:digilocker/utilities/users.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
 class NavDrawer extends StatefulWidget {
@@ -81,17 +83,17 @@ class _NavDrawerState extends State<NavDrawer> {
                               }
                             },
                             child:
-                              (ThemeProvider.currentTheme == "light")
-                                ? Icon(
-                                  Icons.sunny,
-                                  size: 28,
-                                  color: Colors.white,
-                                )
-                                : Icon(
-                                  Icons.nightlight_outlined,
-                                  size: 28,
-                                  color: Colors.white,
-                                ),
+                                (ThemeProvider.currentTheme == "light")
+                                    ? Icon(
+                                      Icons.sunny,
+                                      size: 28,
+                                      color: Colors.white,
+                                    )
+                                    : Icon(
+                                      Icons.nightlight_outlined,
+                                      size: 28,
+                                      color: Colors.white,
+                                    ),
                           );
                         },
                       ),
@@ -169,13 +171,7 @@ class _NavDrawerState extends State<NavDrawer> {
               'Log out',
               style: TextStyle(fontSize: 17, fontWeight: FontWeight.normal),
             ),
-            onTap:
-                () => {
-                  // Navigator.push(
-                  //   context,
-                  //   MaterialPageRoute(builder: (context) => const Settings()),
-                  // ),
-                },
+            onTap: () => {UserManagement().logOut(context)},
           ),
         ],
       ),

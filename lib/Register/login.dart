@@ -1,39 +1,47 @@
-// ignore: file_names
+import 'package:digilocker/Register/register.dart';
+import 'package:flutter/material.dart';
+import 'dart:ui';
 
 import 'package:digilocker/HomePage/HomePage.dart';
-import 'package:digilocker/Register/login.dart';
 import 'package:digilocker/provider/auth_provider.dart';
 import 'package:digilocker/utilities/reusable.dart';
-import 'package:flutter/material.dart';
 
-class Register extends StatefulWidget {
-  const Register({super.key});
+class Login extends StatefulWidget {
+  const Login({super.key});
 
   @override
-  State<Register> createState() => _RegisterState();
+  State<Login> createState() => _LoginState();
 }
 
-class _RegisterState extends State<Register> {
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
+class _LoginState extends State<Login> {
+  final TextEditingController _emailTextController = TextEditingController();
+  final TextEditingController _passwordTextController = TextEditingController();
 
-  void registerUser() async {
-    if (_emailController.text.isNotEmpty &&
-        _passwordController.text.isNotEmpty) {
-      bool isRegistered = await AuthProvider.registerUser(
-        _emailController.text,
-        _passwordController.text,
+  bool isNotValidate = false;
+  void loginUser() async {
+    if (_emailTextController.text.isNotEmpty &&
+        _passwordTextController.text.isNotEmpty) {
+      var token = await AuthProvider.loginuser(
+        _emailTextController.text,
+        _passwordTextController.text,
       );
-
-      if (isRegistered) {
-        print('Registeration Successfully');
+     // print('${response.body}');
+      ;
+      if (token != null) {
+        print('Login Successfully');
         Navigator.pushReplacement(
+          // ignore: use_build_context_synchronously
           context,
           MaterialPageRoute(builder: (context) => const MyHomePage()),
         );
       } else {
-        print("Registration Failed");
+        print('Failed');
+        print('Invalid Credentials');
       }
+    } else {
+      setState(() {
+        isNotValidate = true;
+      });
     }
   }
 
@@ -82,14 +90,14 @@ class _RegisterState extends State<Register> {
                                 "Email",
                                 Icons.person,
                                 false,
-                                _emailController,
+                                _emailTextController,
                               ),
                               const SizedBox(height: 15),
                               reusableTextField(
                                 "Password",
                                 Icons.lock,
                                 true,
-                                _passwordController,
+                                _passwordTextController,
                               ),
                               const SizedBox(height: 25),
 
@@ -113,10 +121,10 @@ class _RegisterState extends State<Register> {
                                 ),
                                 child: TextButton(
                                   onPressed: () {
-                                    registerUser();
+                                    loginUser();
                                   },
                                   child: const Text(
-                                    "Sign Up",
+                                    "Sign In",
                                     style: TextStyle(
                                       color: Colors.white,
                                       fontWeight: FontWeight.normal,
@@ -130,7 +138,7 @@ class _RegisterState extends State<Register> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   const Text(
-                                    "Already have an Account",
+                                    "Create an Account",
                                     style: TextStyle(
                                       color: Colors.grey,
                                       fontSize: 15,
@@ -141,12 +149,13 @@ class _RegisterState extends State<Register> {
                                       Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                          builder: (context) => const Login(),
+                                          builder:
+                                              (context) => const Register(),
                                         ),
                                       );
                                     },
                                     child: const Text(
-                                      "Sign In",
+                                      "Sign Up",
                                       style: TextStyle(
                                         color: Color.fromARGB(255, 55, 14, 201),
                                         fontSize: 15,

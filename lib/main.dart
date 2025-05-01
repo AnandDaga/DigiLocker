@@ -1,4 +1,5 @@
 import "package:digilocker/SplashScreen/SplashScreen.dart";
+import '';
 import "package:digilocker/SplashScreen/checkPin.dart";
 import "package:digilocker/utilities/themeChanger.dart";
 import "package:flutter/material.dart";
@@ -45,7 +46,7 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           theme: ThemeData.light(),
           darkTheme: ThemeData.light(),
-          home: CheckPin(),
+          home: SplashScreen(),
           builder: EasyLoading.init(),
         );
       },

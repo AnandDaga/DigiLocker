@@ -1,7 +1,8 @@
 // ignore_for_file: file_names
 
 import 'dart:async';
-import 'package:digilocker/Register/Register.dart';
+
+import 'package:digilocker/Register/login.dart';
 import 'package:flutter/material.dart';
 //import 'package:flutter/widgets.dart';
 
@@ -33,7 +34,7 @@ class _SplashScreenState extends State<SplashScreen> {
             );
           }),
           pageBuilder: ((context, animation, animationtime) {
-            return const Register();
+            return const Login();
           }),
         ),
       );
